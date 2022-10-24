@@ -43,7 +43,7 @@ public class BootCamp
   public String callLayers()
   {
     // Requires an ENV variable for nextLayer (NEXTLAYER)
-    String nextLayer = System.getEnv("NEXTLAYER");
+    String nextLayer = System.getenv("NEXTLAYER");
 
     // (Log)
     System.out.println( "ENV found: " + nextLayer );
