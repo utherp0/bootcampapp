@@ -6,12 +6,17 @@ import javax.ws.rs.core.MediaType;
 @Path("/endpoints")
 public class BootCamp 
 {
+  private boolean _ignoreState = false;
+
   @Path("health")
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   public String health() 
   {
-    return "Health Placeholder";
+    if( !_ignore )
+    {
+      return "Health Placeholder";
+    }
   }
 
   @Path("setIgnoreState")
@@ -19,7 +24,9 @@ public class BootCamp
   @Produces(MediaType.TEXT_PLAIN)
   public String setIgnoreState(@QueryParam("state") boolean state )
   {
-    return "setIgnoreState Placeholder";
+    _ignore = state;
+
+    return "setIgnoreState Placeholder " + state;
   }
 
   @Path("callLayers")
