@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 public class BootCamp 
 {
   private boolean _ignoreState = false;
-  private long _start = System.getCurrentTimeMillis();
+  private long _start = System.currentTimeMillis();
 
   @Path("health")
   @GET
