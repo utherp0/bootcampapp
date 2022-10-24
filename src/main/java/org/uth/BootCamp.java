@@ -20,7 +20,7 @@ public class BootCamp
 
       long diff = Math.round( elapsed / 1000 );
 
-      return "Elapsed " + diff;
+      return "Elapsed " + diff + " seconds";
     }
 
     return "";
