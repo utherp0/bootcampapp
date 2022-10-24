@@ -17,6 +17,8 @@ public class BootCamp
     {
       return "Health Placeholder";
     }
+
+    return "";
   }
 
   @Path("setIgnoreState")
