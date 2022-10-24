@@ -2,6 +2,7 @@ package org.uth;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.net.*;
 
 @Path("/endpoints")
 public class BootCamp 
@@ -33,7 +34,7 @@ public class BootCamp
   {
     _ignoreState = state;
 
-    return "setIgnoreState Placeholder " + state;
+    return "Ignore state set to " + state;
   }
 
   @Path("callLayers")
@@ -41,6 +42,21 @@ public class BootCamp
   @Produces(MediaType.TEXT_PLAIN)
   public String callLayers()
   {
-    return "callLayers Placeholder";
+    // Requires an ENV variable for nextLayer (NEXTLAYER)
+    String nextLayer = System.getEnv("NEXTLAYER");
+
+    // (Log)
+    System.out.println( "ENV found: " + nextLayer );
+
+    try
+    {
+      InetAddress localAddress = InetAddress.getLocalHost();
+      
+      return localAddress.toString();
+    }
+    catch( Exception exc )
+    {
+      return "Unknown Host Exception";
+    }
   }
 }
