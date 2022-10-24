@@ -13,7 +13,7 @@ public class BootCamp
   @Produces(MediaType.TEXT_PLAIN)
   public String health() 
   {
-    if( !_ignore )
+    if( !_ignoreState )
     {
       return "Health Placeholder";
     }
@@ -24,7 +24,7 @@ public class BootCamp
   @Produces(MediaType.TEXT_PLAIN)
   public String setIgnoreState(@QueryParam("state") boolean state )
   {
-    _ignore = state;
+    _ignoreState = state;
 
     return "setIgnoreState Placeholder " + state;
   }
