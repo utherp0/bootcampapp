@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 public class BootCamp 
 {
   private boolean _ignoreState = false;
+  private long _start = System.getCurrentMillis();
 
   @Path("health")
   @GET
@@ -15,7 +16,11 @@ public class BootCamp
   {
     if( !_ignoreState )
     {
-      return "Health Placeholder";
+      long elapsed = System.currentTimeMillis() - _start;
+
+      long diff = Math.round( elapsed / 1000 );
+
+      return "Elapsed " + diff;
     }
 
     return "";
