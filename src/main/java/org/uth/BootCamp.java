@@ -77,38 +77,45 @@ public class BootCamp
 
       String targetURL = nextLayer + "/endpoints/callLayers";
 
-      URL url = new URL( targetURL );
-      HttpURLConnection getConnection = (HttpURLConnection)url.openConnection();
-
-      getConnection.setRequestMethod( "GET" );
-      getConnection.setRequestProperty( "Content-Type", "text/plain" );
-      getConnection.setDoOutput(true);
-
-      int responseCode = getConnection.getResponseCode();
-
-      System.out.println( "Response: " + responseCode );
-
-      // If it's a valid connection, pull the info
-      if( responseCode == 200 )
+      try
       {
-        BufferedReader in = new BufferedReader( new InputStreamReader( getConnection.getInputStream()));
-        String inputLine = null;
-        StringBuffer content = new StringBuffer();
+        URL url = new URL( targetURL );
+        HttpURLConnection getConnection = (HttpURLConnection)url.openConnection();
 
-        while(( inputLine = in.readLine()) != null )
+        getConnection.setRequestMethod( "GET" );
+        getConnection.setRequestProperty( "Content-Type", "text/plain" );
+        getConnection.setDoOutput(true);
+
+        int responseCode = getConnection.getResponseCode();
+
+        System.out.println( "Response: " + responseCode );
+
+        // If it's a valid connection, pull the info
+        if( responseCode == 200 )
         {
-          content.append( inputLine );
-        }
+          BufferedReader in = new BufferedReader( new InputStreamReader( getConnection.getInputStream()));
+          String inputLine = null;
+          StringBuffer content = new StringBuffer();
 
-        in.close();
+          while(( inputLine = in.readLine()) != null )
+          {
+            content.append( inputLine );
+          }
+
+          in.close();
       
-        System.out.println( "Received: " + content.toString() );
+          System.out.println( "Received: " + content.toString() );
 
-        ipInformation = ipInformation + " " + content.toString();
+          ipInformation = ipInformation + " " + content.toString();
+        } 
+        else
+        {
+          ipInformation = ipInformation + " " + "(Unreachable " + targetURL + ")";
+        }
       }
-      else
+      catch( Exception exc )
       {
-        ipInformation = ipInformation + " " + "(Unreachable " + targetURL + ")";
+        ipInformation = ipInformation + " " + "(Exception occurred connecting to " + targetURL + " " + exc.toString() + ")";
       }
 
       return ipInformation;
