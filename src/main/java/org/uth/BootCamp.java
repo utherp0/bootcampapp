@@ -29,6 +29,25 @@ public class BootCamp
 
     return "";
   }
+  
+  @Path("envVars")
+  @GET
+  @Produces(MediaType.TEXT_PLAIN)
+  public String envVars() 
+  {
+      String var1 = System.getenv("VAR1");
+      String var2 = System.getenv("VAR2");
+      
+      if (var1.length() > 0) {
+          System.out.println( "ENV found - var1: " + var1);
+      }
+      
+      if (var2.length() > 0) {
+          System.out.println( "ENV found - var2: " + var2);
+      }      
+      
+    return "";
+  }  
 
   @Path("setIgnoreState")
   @GET
