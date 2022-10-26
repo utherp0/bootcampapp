@@ -160,13 +160,12 @@ public class BootCamp
           return true;
         }
       };
+
+      HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
     }
     catch( Exception exc )
     {
       System.out.println( "Unable to override security due to " + exc.toString() );
     }
-
-    // Install the all-trusting host verifier
-    HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
   }
 }
