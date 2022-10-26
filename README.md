@@ -1,60 +1,25 @@
 # bootcampapp Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Overview
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+This repo contains a Quarkus app for use in the Red Hat UK Student BootCamp engagements.
 
-## Running the application in dev mode
+The App is buildable using the JAVA 17 UBI S2I Builder (available by default from the Add+ in the OCP Dev Ux.
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
-```
+The App provides three endpoints:
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+1. /endpoints/health - returns the number of seconds the Pod has been active as a health response. If the 'ignore' flag is set on (see 2.) the endpoint returns nothing
 
-## Packaging and running the application
+2. /endpoints/setIgnoreState - takes one param (?state=(true|false) ) and sets the ignore flag used by the first endpoint
 
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+3. /endpoints/callLayers - demonstrates the use of ENV variables; returns the Hostname and IP of the Pod being called, plus if NEXTLAYER is set appends the response from that (allowing for chaining of requests)
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+## Deployment
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
+Can be built locally using the standard Quarkus Maven commands, or built on an OCP cluster using the JAVA 17 UBI S2I Builder (preferred option as it adds the https route).
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+Adding an environment variable 'NEXTLAYER' to the deployment controls the actions of the /callLayers endpoint
 
-## Creating a native executable
+## Caveat
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/bootcampapp-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- RESTEasy Classic ([guide](https://quarkus.io/guides/resteasy)): REST endpoint framework implementing JAX-RS and more
-
-## Provided Code
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+As the system uses https the code overrides normal https security mechanisms manually. This is not good practice. 
