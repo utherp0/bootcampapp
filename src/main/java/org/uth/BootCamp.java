@@ -146,18 +146,25 @@ public class BootCamp
      }
     };
 
-    SSLContext sc = SSLContext.getInstance("SSL");
-    sc.init(null, trustAllCerts, new java.security.SecureRandom());
-    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-    // Create all-trusting host name verifier
-    HostnameVerifier allHostsValid = new HostnameVerifier() 
+    try
     {
-      public boolean verify(String hostname, SSLSession session) 
+      SSLContext sc = SSLContext.getInstance("SSL");
+      sc.init(null, trustAllCerts, new java.security.SecureRandom());
+      HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+      // Create all-trusting host name verifier
+      HostnameVerifier allHostsValid = new HostnameVerifier() 
       {
-        return true;
-      }
-    };
+        public boolean verify(String hostname, SSLSession session) 
+        {
+          return true;
+        }
+      };
+    }
+    catch( Exception exc )
+    {
+      System.out.println( "Unable to override security due to " + exc.toString() );
+    }
 
     // Install the all-trusting host verifier
     HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
