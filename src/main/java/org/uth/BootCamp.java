@@ -3,6 +3,7 @@ package org.uth;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.net.*;
+import java.io.*;
 
 @Path("/endpoints")
 public class BootCamp 
@@ -48,15 +49,69 @@ public class BootCamp
     // (Log)
     System.out.println( "ENV found: " + nextLayer );
 
+    String ipInformation = null;
+
     try
     {
       InetAddress localAddress = InetAddress.getLocalHost();
-      
-      return localAddress.toString();
+      ipInformation = localAddres.toString();
+    }
+    catch( UnknownHostException exc )
+    {
+      ipInformation = "(Unknown Host Exception in App)"; 
     }
     catch( Exception exc )
     {
-      return "Unknown Host Exception";
+      ipInformation = "(Other exception in App: " + exc.toString() + ")";
+    }
+
+    // If there is no ENV variable, just return the current IP details
+    if( nextLayer == null )
+    {
+      return ipInformation;
+    }
+    // Otherwise call on to the next layer and add that information to the return
+    else
+    {
+      System.out.println( "Fetching " + nextLayer + "/endpoints/callLayers" );
+
+      String targetURL = nextLayer + "/endpoints/callLayers";
+
+      URL url = new URL( targetURL );
+      HttpURLConnection getConnection = (HttpURLConnection)url.openConnection();
+
+      getConnection.setRequestMethod( "GET" );
+      getConnection.setRequestProperty( "Content-Type", "text/plain" );
+      getConnection.setDoOutput(true);
+
+      int responseCode = getConnection.getResponseCode();
+
+      System.out.println( "Response: " + responseCode );
+
+      // If it's a valid connection, pull the info
+      if( responseCode == 200 )
+      {
+        BufferedReader in = new BufferedReader( new InputStreamReader( getConnection.getInputStream()));
+        String inputLine = null;
+        StringBuffer content = new StringBuffer();
+
+        while(( inputLine = in.readLine()) != null )
+        {
+          content.append( inputLine );
+        }
+
+        in.close();
+      
+        System.out.println( "Received: " + content.toString() );
+
+        ipInformation = ipInformation + " " + content.toString();
+      }
+      else
+      {
+        ipInformation = ipInformation + " " + "(Unreachable " + targetURL + ")";
+      }
+
+      return ipInformation;
     }
   }
 }
