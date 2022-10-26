@@ -54,7 +54,7 @@ public class BootCamp
     try
     {
       InetAddress localAddress = InetAddress.getLocalHost();
-      ipInformation = localAddres.toString();
+      ipInformation = localAddress.toString();
     }
     catch( UnknownHostException exc )
     {
