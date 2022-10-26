@@ -4,6 +4,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.net.*;
 import java.io.*;
+import javax.net.ssl.*;
+import java.security.cert.X509Certificate;
 
 @Path("/endpoints")
 public class BootCamp 
@@ -73,6 +75,9 @@ public class BootCamp
     // Otherwise call on to the next layer and add that information to the return
     else
     {
+      // Security fix for certs
+      fixSecurity();
+
       System.out.println( "Fetching " + nextLayer + "/endpoints/callLayers" );
 
       String targetURL = nextLayer + "/endpoints/callLayers";
@@ -80,7 +85,7 @@ public class BootCamp
       try
       {
         URL url = new URL( targetURL );
-        HttpURLConnection getConnection = (HttpURLConnection)url.openConnection();
+        HttpsURLConnection getConnection = (HttpsURLConnection)url.openConnection();
 
         getConnection.setRequestMethod( "GET" );
         getConnection.setRequestProperty( "Content-Type", "text/plain" );
@@ -120,5 +125,41 @@ public class BootCamp
 
       return ipInformation;
     }
+  }
+
+  // Unfortunately need to add a security fix for https due to the nature of the certs in the demo
+  // NOT FOR PRODUCTION
+  private void fixSecurity()
+  {
+    TrustManager[] trustAllCerts = new TrustManager[] 
+    {
+      new X509TrustManager() 
+      {
+        public java.security.cert.X509Certificate[] getAcceptedIssuers() 
+        {
+          return null;
+        }
+
+        public void checkClientTrusted(X509Certificate[] certs, String authType) {  }
+
+        public void checkServerTrusted(X509Certificate[] certs, String authType) {  }
+     }
+    };
+
+    SSLContext sc = SSLContext.getInstance("SSL");
+    sc.init(null, trustAllCerts, new java.security.SecureRandom());
+    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+    // Create all-trusting host name verifier
+    HostnameVerifier allHostsValid = new HostnameVerifier() 
+    {
+      public boolean verify(String hostname, SSLSession session) 
+      {
+        return true;
+      }
+    };
+
+    // Install the all-trusting host verifier
+    HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
   }
 }
