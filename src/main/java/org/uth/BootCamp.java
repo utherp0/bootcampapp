@@ -38,11 +38,11 @@ public class BootCamp
       String var1 = System.getenv("VAR1");
       String var2 = System.getenv("VAR2");
       
-      if (var1.length() > 0) {
+      if ((var1 != null) && (var1.length() > 0)) {
           System.out.println( "ENV found - var1: " + var1);
       }
       
-      if (var2.length() > 0) {
+      if ((var2 != null) && (var2.length() > 0)) {
           System.out.println( "ENV found - var2: " + var2);
       }      
       
