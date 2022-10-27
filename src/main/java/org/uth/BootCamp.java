@@ -8,7 +8,7 @@ import javax.net.ssl.*;
 import java.security.cert.X509Certificate;
 
 @Path("/endpoints")
-public class BootCamp 
+public class BootCamp
 {
   private boolean _ignoreState = false;
   private long _start = System.currentTimeMillis();
@@ -16,7 +16,7 @@ public class BootCamp
   @Path("health")
   @GET
   @Produces(MediaType.TEXT_PLAIN)
-  public String health() 
+  public String health()
   {
     if( !_ignoreState )
     {
@@ -29,24 +29,31 @@ public class BootCamp
 
     return "";
   }
-  
+
   @Path("envVars")
   @GET
   @Produces(MediaType.TEXT_PLAIN)
-  public String envVars() 
+  public String envVars()
   {
       String var1 = System.getenv("VAR1");
       String var2 = System.getenv("VAR2");
-      
+      String returnMessage = "";
+
       if ((var1 != null) && (var1.length() > 0)) {
           System.out.println( "ENV found - var1: " + var1);
+          returnMessage = "Environment variable : " + VAR1 + " --> " + var1;
       }
-      
+
       if ((var2 != null) && (var2.length() > 0)) {
           System.out.println( "ENV found - var2: " + var2);
-      }      
-      
-    return "";
+          if (returnMessage.length() > 0) {
+            returnMessage += "\n";
+          }
+          returnMessage += "Environment variable : " + VAR2 + " --> " + var2;
+
+      }
+
+    return returnMessage;
   }  
 
   @Path("setIgnoreState")
@@ -79,7 +86,7 @@ public class BootCamp
     }
     catch( UnknownHostException exc )
     {
-      ipInformation = "(Unknown Host Exception in App)"; 
+      ipInformation = "(Unknown Host Exception in App)";
     }
     catch( Exception exc )
     {
@@ -127,11 +134,11 @@ public class BootCamp
           }
 
           in.close();
-      
+
           System.out.println( "Received: " + content.toString() );
 
           ipInformation = ipInformation + " " + content.toString();
-        } 
+        }
         else
         {
           ipInformation = ipInformation + " " + "(Unreachable " + targetURL + ")";
@@ -150,11 +157,11 @@ public class BootCamp
   // NOT FOR PRODUCTION
   private void fixSecurity()
   {
-    TrustManager[] trustAllCerts = new TrustManager[] 
+    TrustManager[] trustAllCerts = new TrustManager[]
     {
-      new X509TrustManager() 
+      new X509TrustManager()
       {
-        public java.security.cert.X509Certificate[] getAcceptedIssuers() 
+        public java.security.cert.X509Certificate[] getAcceptedIssuers()
         {
           return null;
         }
@@ -172,9 +179,9 @@ public class BootCamp
       HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
       // Create all-trusting host name verifier
-      HostnameVerifier allHostsValid = new HostnameVerifier() 
+      HostnameVerifier allHostsValid = new HostnameVerifier()
       {
-        public boolean verify(String hostname, SSLSession session) 
+        public boolean verify(String hostname, SSLSession session)
         {
           return true;
         }
