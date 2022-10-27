@@ -38,6 +38,7 @@ public class BootCamp
       String var1 = System.getenv("VAR1");
       String var2 = System.getenv("VAR2");
       String ipInformation = null;
+      String returnMessage = null;
 
       try
       {
@@ -53,8 +54,6 @@ public class BootCamp
         ipInformation = "(Other exception in App: " + exc.toString() + ")";
       }
 
-      String returnMessage = ipInformation + " No environment variables have been set";
-
       if ((var1 != null) && (var1.length() > 0)) {
           System.out.println( "ENV found - var1: " + var1);
           returnMessage = ipInformation + "\nEnvironment variable : VAR1 --> " + var1;
@@ -68,7 +67,9 @@ public class BootCamp
             returnMessage = ipInformation + "\n";
           }
           returnMessage += "Environment variable : VAR2 --> " + var2;
-
+      }
+      if (returnMessage == null) {
+        returnMessage = ipInformation + " No environment variables have been set";
       }
 
     return returnMessage;
