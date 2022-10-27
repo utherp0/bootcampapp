@@ -37,11 +37,11 @@ public class BootCamp
   {
       String var1 = System.getenv("VAR1");
       String var2 = System.getenv("VAR2");
-      String returnMessage = "";
+      String returnMessage = "No environment variables have been set";
 
       if ((var1 != null) && (var1.length() > 0)) {
           System.out.println( "ENV found - var1: " + var1);
-          returnMessage = "Environment variable : " + VAR1 + " --> " + var1;
+          returnMessage = "Environment variable : VAR1 --> " + var1;
       }
 
       if ((var2 != null) && (var2.length() > 0)) {
@@ -49,12 +49,12 @@ public class BootCamp
           if (returnMessage.length() > 0) {
             returnMessage += "\n";
           }
-          returnMessage += "Environment variable : " + VAR2 + " --> " + var2;
+          returnMessage += "Environment variable : VAR2 --> " + var2;
 
       }
 
     return returnMessage;
-  }  
+  }
 
   @Path("setIgnoreState")
   @GET
