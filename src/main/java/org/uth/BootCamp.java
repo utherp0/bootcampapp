@@ -38,7 +38,7 @@ public class BootCamp
       String var1 = System.getenv("VAR1");
       String var2 = System.getenv("VAR2");
       String ipInformation = null;
-      String returnMessage = null;
+      String returnMessage = "";
 
       try
       {
