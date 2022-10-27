@@ -37,17 +37,35 @@ public class BootCamp
   {
       String var1 = System.getenv("VAR1");
       String var2 = System.getenv("VAR2");
-      String returnMessage = "No environment variables have been set";
+      String ipInformation = null;
+
+      try
+      {
+        InetAddress localAddress = InetAddress.getLocalHost();
+        ipInformation = localAddress.toString();
+      }
+      catch( UnknownHostException exc )
+      {
+        ipInformation = "(Unknown Host Exception in App)";
+      }
+      catch( Exception exc )
+      {
+        ipInformation = "(Other exception in App: " + exc.toString() + ")";
+      }
+
+      String returnMessage = ipInformation + " No environment variables have been set";
 
       if ((var1 != null) && (var1.length() > 0)) {
           System.out.println( "ENV found - var1: " + var1);
-          returnMessage = "Environment variable : VAR1 --> " + var1;
+          returnMessage = ipInformation + "\nEnvironment variable : VAR1 --> " + var1;
       }
 
       if ((var2 != null) && (var2.length() > 0)) {
           System.out.println( "ENV found - var2: " + var2);
           if (returnMessage.length() > 0) {
             returnMessage += "\n";
+          } else {
+            returnMessage = ipInformation + "\n";
           }
           returnMessage += "Environment variable : VAR2 --> " + var2;
 
