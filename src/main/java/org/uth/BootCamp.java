@@ -68,7 +68,7 @@ public class BootCamp
           }
           returnMessage += "Environment variable : VAR2 --> " + var2;
       }
-      if (returnMessage == null) {
+      if (returnMessage == "") {
         returnMessage = ipInformation + " No environment variables have been set";
       }
 
