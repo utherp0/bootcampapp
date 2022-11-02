@@ -26,6 +26,8 @@ public class BootCamp
 
       return "Elapsed " + diff + " seconds";
     }
+
+    return "";
   }
 
   @Path("envVars")
