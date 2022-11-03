@@ -72,6 +72,8 @@ public class BootCamp
         returnMessage = ipInformation + " No environment variables have been set";
       }
 
+      returnMessage += "\n";
+
     return returnMessage;
   }
 
