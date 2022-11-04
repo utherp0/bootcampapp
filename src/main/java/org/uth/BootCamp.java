@@ -16,8 +16,7 @@ public class BootCamp
   @Path("health")
   @GET
   @Produces(MediaType.TEXT_PLAIN)
-  public String health()
-  {
+  public String health() throws InterruptedException {
     if( !_ignoreState )
     {
       long elapsed = System.currentTimeMillis() - _start;
@@ -25,6 +24,9 @@ public class BootCamp
       long diff = Math.round( elapsed / 1000 );
 
       return "Elapsed " + diff + " seconds";
+    } else {
+      System.out.println( "Ignoring the health probe");
+      Thread.sleep(20000);
     }
 
     return "";
@@ -170,7 +172,7 @@ public class BootCamp
         ipInformation = ipInformation + " " + "(Exception occurred connecting to " + targetURL + " " + exc.toString() + ")";
       }
 
-      return ipInformation;
+      return ipInformation + "\n";
     }
   }
 
