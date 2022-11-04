@@ -25,6 +25,9 @@ public class BootCamp
       long diff = Math.round( elapsed / 1000 );
 
       return "Elapsed " + diff + " seconds";
+    } else {
+      System.out.println( "Ignoring the health probe");
+      sleep 1000;
     }
 
     return "";
@@ -170,7 +173,7 @@ public class BootCamp
         ipInformation = ipInformation + " " + "(Exception occurred connecting to " + targetURL + " " + exc.toString() + ")";
       }
 
-      return ipInformation;
+      return ipInformation + "\n";
     }
   }
 
