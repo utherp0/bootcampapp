@@ -27,7 +27,7 @@ public class BootCamp
       return "Elapsed " + diff + " seconds";
     } else {
       System.out.println( "Ignoring the health probe");
-      sleep 1000;
+      Thread.sleep(20000);
     }
 
     return "";
