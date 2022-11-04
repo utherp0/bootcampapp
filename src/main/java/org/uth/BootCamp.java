@@ -16,8 +16,7 @@ public class BootCamp
   @Path("health")
   @GET
   @Produces(MediaType.TEXT_PLAIN)
-  public String health()
-  {
+  public String health() throws InterruptedException {
     if( !_ignoreState )
     {
       long elapsed = System.currentTimeMillis() - _start;
