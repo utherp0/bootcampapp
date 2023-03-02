@@ -4,8 +4,8 @@ kind: Service
 metadata:
   annotations:
     app.openshift.io/vcs-url: <<unknown>>
-    app.quarkus.io/commit-id: dd9efecb0a26ee2e94f4b921aaf167b650ec3149
-    app.quarkus.io/build-timestamp: 2022-10-24 - 10:20:52 +0000
+    app.quarkus.io/commit-id: 826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6
+    app.quarkus.io/build-timestamp: 2023-02-28 - 09:15:18 +0000
   labels:
     app.kubernetes.io/name: bootcampapp
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
@@ -26,8 +26,8 @@ kind: ImageStream
 metadata:
   annotations:
     app.openshift.io/vcs-url: <<unknown>>
-    app.quarkus.io/commit-id: dd9efecb0a26ee2e94f4b921aaf167b650ec3149
-    app.quarkus.io/build-timestamp: 2022-10-24 - 10:20:52 +0000
+    app.quarkus.io/commit-id: 826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6
+    app.quarkus.io/build-timestamp: 2023-02-28 - 09:15:18 +0000
   labels:
     app.kubernetes.io/name: bootcampapp
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
@@ -41,17 +41,17 @@ metadata:
   labels:
     app.kubernetes.io/name: bootcampapp
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
-  name: openjdk-11
+  name: s2i-java
 spec:
-  dockerImageRepository: registry.access.redhat.com/ubi8/openjdk-11
+  dockerImageRepository: fabric8/s2i-java
 ---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   annotations:
     app.openshift.io/vcs-url: <<unknown>>
-    app.quarkus.io/commit-id: dd9efecb0a26ee2e94f4b921aaf167b650ec3149
-    app.quarkus.io/build-timestamp: 2022-10-24 - 10:20:52 +0000
+    app.quarkus.io/commit-id: 826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6
+    app.quarkus.io/build-timestamp: 2023-02-28 - 09:15:18 +0000
   labels:
     app.kubernetes.io/name: bootcampapp
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
@@ -68,15 +68,15 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        name: openjdk-11:1.14
+        name: s2i-java:2.3
 ---
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   annotations:
     app.openshift.io/vcs-url: <<unknown>>
-    app.quarkus.io/commit-id: dd9efecb0a26ee2e94f4b921aaf167b650ec3149
-    app.quarkus.io/build-timestamp: 2022-10-24 - 10:20:52 +0000
+    app.quarkus.io/commit-id: 826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6
+    app.quarkus.io/build-timestamp: 2023-02-28 - 09:15:18 +0000
   labels:
     app.kubernetes.io/name: bootcampapp
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
@@ -91,11 +91,11 @@ spec:
     metadata:
       annotations:
         app.openshift.io/vcs-url: <<unknown>>
-        app.quarkus.io/commit-id: dd9efecb0a26ee2e94f4b921aaf167b650ec3149
-        app.quarkus.io/build-timestamp: 2022-10-24 - 10:20:52 +0000
+        app.quarkus.io/commit-id: 826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6
+        app.quarkus.io/build-timestamp: 2023-02-28 - 09:15:18 +0000
       labels:
-        app.kubernetes.io/name: bootcampapp
         app.kubernetes.io/version: 1.0.0-SNAPSHOT
+        app.kubernetes.io/name: bootcampapp
         app.openshift.io/runtime: quarkus
     spec:
       containers:
@@ -104,12 +104,12 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: CACHESERVICE
-              value: kneuralgrid
-            - name: CACHENAME
-              value: testgrid1
             - name: JAVA_APP_JAR
               value: /deployments/quarkus-run.jar
+            - name: CACHENAME
+              value: testgrid1
+            - name: CACHESERVICE
+              value: kneuralgrid
           image: uther/bootcampapp:1.0.0-SNAPSHOT
           imagePullPolicy: Always
           name: bootcampapp

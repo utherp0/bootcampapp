@@ -3,8 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.quarkus.io/commit-id: dd9efecb0a26ee2e94f4b921aaf167b650ec3149
-    app.quarkus.io/build-timestamp: 2022-10-24 - 10:20:52 +0000
+    app.quarkus.io/commit-id: 826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6
+    app.quarkus.io/build-timestamp: 2023-02-28 - 09:15:18 +0000
   labels:
     app.kubernetes.io/name: bootcampapp
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
@@ -23,26 +23,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.quarkus.io/commit-id: dd9efecb0a26ee2e94f4b921aaf167b650ec3149
-    app.quarkus.io/build-timestamp: 2022-10-24 - 10:20:52 +0000
+    app.quarkus.io/commit-id: 826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6
+    app.quarkus.io/build-timestamp: 2023-02-28 - 09:15:18 +0000
   labels:
-    app.kubernetes.io/version: 1.0.0-SNAPSHOT
     app.kubernetes.io/name: bootcampapp
+    app.kubernetes.io/version: 1.0.0-SNAPSHOT
   name: bootcampapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/version: 1.0.0-SNAPSHOT
       app.kubernetes.io/name: bootcampapp
+      app.kubernetes.io/version: 1.0.0-SNAPSHOT
   template:
     metadata:
       annotations:
-        app.quarkus.io/commit-id: dd9efecb0a26ee2e94f4b921aaf167b650ec3149
-        app.quarkus.io/build-timestamp: 2022-10-24 - 10:20:52 +0000
+        app.quarkus.io/commit-id: 826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6
+        app.quarkus.io/build-timestamp: 2023-02-28 - 09:15:18 +0000
       labels:
-        app.kubernetes.io/version: 1.0.0-SNAPSHOT
         app.kubernetes.io/name: bootcampapp
+        app.kubernetes.io/version: 1.0.0-SNAPSHOT
     spec:
       containers:
         - env:
@@ -50,8 +50,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: JAVA_APP_JAR
-              value: /deployments/quarkus-run.jar
           image: uther/bootcampapp:1.0.0-SNAPSHOT
           imagePullPolicy: Always
           name: bootcampapp
