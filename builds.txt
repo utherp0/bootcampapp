@@ -1,0 +1,16 @@
+(MVN Build to ImageStream)
+mvn clean package -Dquarkus.container-image.build=true
+
+(MVN Deployment)
+mvn clean package -Dquarkus.kubernetes.deploy=true
+
+(Quarkus Build (doesn't work)
+quarkus build -Dquarkus.kubernetes-client.master-url=https://api.cluster-mdpvk.mdpvk.sandbox2609.opentlc.com:6443 -Dquarkus.kubernetes-client.token=sha256~V7rTWIEvDUtOK7teE2zyy7bud9lsyLXIi7bpHS4a-tU
+
+(JAR drop (doesn't work)
+
+(Good old S2I)
+-> see .s2i/envrionment
+
+(devfiles)
+Breaks HAC/Breaks OCP

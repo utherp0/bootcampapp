@@ -3,8 +3,8 @@
   "kind" : "Service",
   "metadata" : {
     "annotations" : {
-      "app.quarkus.io/commit-id" : "826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6",
-      "app.quarkus.io/build-timestamp" : "2023-02-28 - 09:15:18 +0000"
+      "app.quarkus.io/commit-id" : "5281cf2fbcdc4dbb2125f2d0ec0b98cd9baeb158",
+      "app.quarkus.io/build-timestamp" : "2023-03-03 - 10:30:08 +0000"
     },
     "labels" : {
       "app.kubernetes.io/name" : "bootcampapp",
@@ -29,8 +29,8 @@
   "kind" : "Deployment",
   "metadata" : {
     "annotations" : {
-      "app.quarkus.io/commit-id" : "826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6",
-      "app.quarkus.io/build-timestamp" : "2023-02-28 - 09:15:18 +0000"
+      "app.quarkus.io/commit-id" : "5281cf2fbcdc4dbb2125f2d0ec0b98cd9baeb158",
+      "app.quarkus.io/build-timestamp" : "2023-03-03 - 10:30:08 +0000"
     },
     "labels" : {
       "app.kubernetes.io/name" : "bootcampapp",
@@ -49,8 +49,8 @@
     "template" : {
       "metadata" : {
         "annotations" : {
-          "app.quarkus.io/commit-id" : "826b1bfcf77ccb37791c0dfd3a052d1f0d5169d6",
-          "app.quarkus.io/build-timestamp" : "2023-02-28 - 09:15:18 +0000"
+          "app.quarkus.io/commit-id" : "5281cf2fbcdc4dbb2125f2d0ec0b98cd9baeb158",
+          "app.quarkus.io/build-timestamp" : "2023-03-03 - 10:30:08 +0000"
         },
         "labels" : {
           "app.kubernetes.io/name" : "bootcampapp",
@@ -66,6 +66,9 @@
                 "fieldPath" : "metadata.namespace"
               }
             }
+          }, {
+            "name" : "JAVA_APP_JAR",
+            "value" : "/deployments/bootcampapp-1.0.0-SNAPSHOT-runner.jar"
           } ],
           "image" : "uther/bootcampapp:1.0.0-SNAPSHOT",
           "imagePullPolicy" : "Always",
